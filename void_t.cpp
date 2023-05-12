@@ -2,6 +2,7 @@
 #include<utility>
 #include<iostream>
 #include<memory>
+#include<vector>
 
 //成员member
 #define DEFINE_HAS_MEMBER(Member)                                   \
@@ -113,7 +114,7 @@ template<typename T,typename... Args>
 struct is_function<T(Args...)>:std::true_type{};
 
 template<typename T,typename... Args> inline 
-constexpr bool is_function_v{is_function<T,Args...>::value};
+constexpr bool is_function_v{is_function<T>::value};
 
 class  A
 {
@@ -158,6 +159,16 @@ void print(int i)
     std::cout<<"function"<<std::endl;
 }
 
+struct noprint
+{
+
+};
+
+void hello(int &a,int &b)
+{
+    std::cout<<"hello"<<std::endl;
+}
+DEFINE_HAS_TYPE(value_type);
 
 int main()
 {
@@ -198,7 +209,12 @@ int main()
     std::cout<<is_eqcompare_v<C,C><<std::endl;
 
     std::cout<<"is_function"<<std::endl;
-    std::cout<<is_function_v<decltype(print),int><<std::endl;
+    std::cout<<is_function_v<noprint><<std::endl;
+    std::cout<<is_function_v<decltype(print)><<std::endl;
+    std::cout<<is_function_v<decltype(hello)><<std::endl;
+
+    
+    std::cout<<"has_type"<<HasTypeT_value_type<std::vector<int>>::value<<std::endl;
     system("pause");
     return 0;
 }

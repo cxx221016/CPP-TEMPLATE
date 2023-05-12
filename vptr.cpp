@@ -47,7 +47,6 @@ int main(int argc, char const *argv[]) {
   print();  // 调用print函数
 
   delete base;
-
   cout<< GET(Derived,random_)<<endl;
   system("pause");
   return 0;
